@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if title %}
+            <title>{{ title }} - web app</title>
+        {% else %}
+            <title>Default Title</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            SuperServece:
+            <a htef="{{ url_for('users') }}">To All Users</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <hr>
+        {% with message = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+
+        <!--Блок вставки дочернего шаблона Start-->
+        {% block content %}
+        {% endblock %}
+        <!--Конец блока вставки дочернего шаблона-->
+    </body>
+</html>

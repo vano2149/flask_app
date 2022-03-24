@@ -1,0 +1,11 @@
+<!--First USER.HTML - CHILD TEMPLATE-->
+{% extends "base.html" %}
+{% block content %}
+    {% for user in users %}
+    <div>
+        <p>
+            {{ user.username }}'s post: <b>{{ user.posts.first }}</b>
+        </p>
+    </div>
+    {% endfor %}
+{% endblock %}
