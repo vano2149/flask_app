@@ -4,6 +4,7 @@
 """
 
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     """
@@ -14,7 +15,11 @@ class User(db.Model):
     * password_hash - закодированный пароль пользователя.
     * email - уникальный.
 
-    еще добавим два метода для отладки: __str__, __repr__
+    еще добавим два метода для отладки: __str__, __repr__.
+    
+    2 метода для работы с паролем:
+        * set_password(pure_pass) - > hash_pass
+        * chechk_password(semi_pure_pass) - > bool
     """
 
     __tablename__ = "users"
@@ -23,6 +28,24 @@ class User(db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     email = db.Column(db.String(120), index=True, unique=True)
+    posts = db.relationship("Post", backref="author", lazy="dynamic")
+
+
+    def set_password(self, pure_pass:str):
+        """
+        Устанавливает значение фтрибута password_hash
+        при регистрации (чаще всего).
+        """
+        self.password_hash = generate_password_hash(pure_pass)
+
+    
+    def check_password(self, semi_pure_pass:str) -> bool:
+        """
+        Возвращает True если password_hash был сгенерирован на основе
+        semi_pure_pass, и False в противном случае.
+        """
+        return check_password_hash(self.password_hash, semi_pure_pass)
+
 
     def __str__(self):
         """
@@ -36,5 +59,4 @@ class User(db.Model):
         """
         return f"<User [username:{self.username}, email:{self.email}]>"
 
-    #posts = db.relationship("Post", backref="author", lazy="dynamic")
 
