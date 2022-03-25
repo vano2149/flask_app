@@ -3,8 +3,8 @@
 для запуска приложения.
 """
 
-from app import app , db
-from app.models import User
+from app import app, db
+from app.models.user import User
 
 
 
@@ -15,7 +15,7 @@ def make_shell_context():
     где ключ - это короткое имя, через которое можно получить 
     доступ к объекту (value) возвращенного словаря.
     """
-    
+
     return {
         "app" : app,
         "db" : db,
