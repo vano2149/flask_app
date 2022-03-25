@@ -8,6 +8,7 @@ from app.models.user import User
 
 
 
+
 @app.shell_context_processor
 def make_shell_context():
     """
@@ -23,3 +24,6 @@ def make_shell_context():
     }
 if __name__ == "__main__":
     app.run()
+
+
+# Проверить работу Login и запустить приложение.
