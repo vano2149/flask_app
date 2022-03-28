@@ -11,6 +11,7 @@ jinja2 = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-login = "*"
+wtforms = {extras = ["email"], version = "*"}
 
 [dev-packages]
 

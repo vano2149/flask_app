@@ -24,7 +24,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(450))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __str__(self):
         return f"Post object (timrstamp:{self.timestamp}, body:{self.body})"

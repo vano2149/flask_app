@@ -17,4 +17,4 @@ login = LoginManager(app)
 
 from app.routes import base
 from app.models.user import User
-
+from app.models.post import Post
