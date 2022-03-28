@@ -3,5 +3,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>HomePage</h1>
+    <h1>HomePage All Posted</h1><hr>
+    {% for post in posts %}
+    <h3><b>{{ post.title }}</b> by {{post.author }}</h3>
+    <h4>{{ post.date_posted }}</h4>
+    <p>
+        {{ post.content }}
+    </p>
+    {% endfor %}
 {% endblock %}

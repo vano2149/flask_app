@@ -32,3 +32,23 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post [timestamp:{self.timestamp}, body:{self.body}]>"
 
+posts = [
+    {
+        "author" : "Ivan Kal'ko",
+        'title' : 'Blog Post #1',
+        'content' : "First post content",
+        'date_posted' : "March 13, 2022",
+    },
+    {
+        'author' : 'Alice Yandex',
+        'title' : 'Blog Post #2',
+        'content': 'Second post content',
+        'date_posted' : 'March 10, 2022',
+    },
+    {
+        'author':"Dungeon Master",
+        'title':'Blog Post #3',
+        'content' :'Third post content',
+        'date_posted': 'April 28, 2022',
+    }
+]
