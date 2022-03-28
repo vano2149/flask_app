@@ -14,7 +14,7 @@
         </p>
         <p>
             {{ form.email.label }}<br>
-            {{ form.email.(size=54)}}<br>
+            {{ form.email(size=54)}}<br>
             {% for error in form.email.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
@@ -29,6 +29,7 @@
         <p>
             {{ form.password2.label }}<br>
             {{ form.password2(size=54) }}<br>
+            {% for errors in form.password.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>

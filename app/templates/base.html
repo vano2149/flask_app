@@ -9,9 +9,15 @@
     </head>
     <body>
         <div>
-            SuperServece:
-            <a htef="{{ url_for('users') }}">To All Users</a>
-            <a href="{{ url_for('login') }}">Login</a>
+            Super Blog:
+            <a htef="{{ url_for('users') }}">To All Users</a> |
+            {% if 1 %}
+            <a href="#">Log Out</a> |
+            <a htef="#">About</a>
+            {% else %}
+                <a href="#">LogIn</a> |
+                <a href="#">Register</a>
+            {% endif %}
         </div>
         <hr>
         {% with message = get_flashed_messages() %}
