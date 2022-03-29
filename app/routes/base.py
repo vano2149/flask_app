@@ -9,7 +9,7 @@ from app.forms.user import LoginForm, RegisterForm
 from app.models.user import User
 from flask_login import current_user, login_user, logout_user
 
-@app.route("/login", methods=["GET","POST"])
+"""@app.route("/login", methods=["GET","POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('users'))
@@ -26,7 +26,7 @@ def login():
         if not next_page:
             next_page = url_for("homepage")
         return redirect(next_page)
-    return render_template("login.html", title="Log In", form=form)
+    return render_template("login.html", title="Log In", form=form)"""
 
 @app.route("/logout", methods=["GET"])
 def logout():
@@ -34,7 +34,7 @@ def logout():
     logout_user()
     return redirect(url_for("users"))
 
-@app.route("/register",methods=["GET", "POST"])
+"""@app.route("/register",methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if request.method == "POST" and form.validate():
@@ -46,7 +46,7 @@ def register():
         return redirect(url_for("homepage"))
     return render_template("register.html", form=form, title="Register")
 
-
+"""
 @app.route("/users", methods=["GET"])
 def users():
     users = [
