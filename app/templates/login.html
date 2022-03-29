@@ -9,9 +9,9 @@
         {{ form.hidden_tag() }}
         <!--Поле ввода ввода username-->
         <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=54)}}<br>
-            {% for error in form.username.errors %}
+            {{ form.email.label }}<br>
+            {{ form.email(size=54)}}<br>
+            {% for error in form.email.errors %}
                 <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
