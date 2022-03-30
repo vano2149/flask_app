@@ -13,7 +13,7 @@ def login():
     if request.method == "POST" and form.validate():
         if form.email.data == "admin@admin.com" and form.password.data == "admin":
             flash('You have been logged in!')
-            return redirect(url_for("home"))
+            return redirect(url_for("home_page"))
         else:
             flash('Login Unsuccessfull. Please check your email and password! ')
 
