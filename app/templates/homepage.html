@@ -3,12 +3,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>HomePage All Posted</h1><hr>
-    {% for post in posts %}
-    <h3><b>{{ post.title }}</b> by {{post.author }}</h3>
-    <h4>{{ post.date_posted }}</h4>
-    <p>
-        {{ post.content }}
-    </p>
+  <h1>HomePage All Posted</h1><hr>
+    {% for page_num in posts.iter_pages() %}
+      {% if page_num %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('home',page=page_num)}}">{{ pege_num }}</a>
+      {% else %}
+        ...
+      {% endif %}
     {% endfor %}
 {% endblock %}
