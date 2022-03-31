@@ -28,12 +28,6 @@ def login():
         return redirect(next_page)
     return render_template("login.html", title="Log In", form=form)"""
 
-@app.route("/logout", methods=["GET"])
-def logout():
-    flash("User successfuly logged out!")
-    logout_user()
-    return redirect(url_for("users"))
-
 """@app.route("/register",methods=["GET", "POST"])
 def register():
     form = RegisterForm()

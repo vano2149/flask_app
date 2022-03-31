@@ -7,6 +7,29 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
 from app.models.user import User
+from flask_login import current_user
+
+class UpdateUserForm(FlaskForm):
+    """
+    Класс описывающий форму изменения данных пользователя.
+    """
+    username = StringField(label="Username" , validators=[DataRequired(), Length(3, 64)])
+    email = StringField(label='Email', validators=[DataRequired(), Email()])
+    # picture =
+    submit =SubmitField(label='Edit')
+
+    def validators_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter(User.username == username).first()
+            if user:
+                raise ValidationError("That username is taken. Please choose a different one!")
+        
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError("That email is taken.Please choose a different one!")
+
 
 class LoginForm(FlaskForm):
     """
@@ -28,12 +51,4 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField(label="Password(again)", validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField(label="Sing Up")
 
-    def validators_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError("This username already taken.")
-        
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is not None:
-            raise ValidationError("Please use different email.")
+
