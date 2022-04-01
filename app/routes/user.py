@@ -3,10 +3,10 @@
 """
 from app import app, db
 from flask import render_template, request, redirect, flash, url_for
-from app.forms.user import LoginForm, RegisterForm
+from app.forms.user import LoginForm, RegisterForm, UpdateUserForm
 from app.models.user import User
-from flask_login import current_user, login_user, logout_user
-
+from flask_login import current_user, login_user, logout_user, login_required
+from app.utils.compressor import save_picture
 
 @app.route("/logout", methods=["GET"])
 def logout():
@@ -51,6 +51,21 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 @app.route("/account", methods=["GET","POST"])
+@login_required
 def account():
+    form = UpdateUserForm()
+    if request.method == "POST" and form.validate():
+        if form.picture.data:
+            picture_file= save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your account info updated!", "success")
+        return redirect(url_for("account"))
+    else:
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
     image_file = url_for('static', filename="images/profiles/" + current_user.image_file)
-    return render_template("account.html", title="My Account", image_file=image_file)
+    return render_template("account.html", title="My Account", image_file=image_file, form=form)
