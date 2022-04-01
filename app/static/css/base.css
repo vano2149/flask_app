@@ -29,7 +29,10 @@ body {
         padding: 10px 20px;
         border: 1px solid #dddddd;
         border-radius: 3px;
-        margin-bottom: 20px;
+        margin-right: 1px;
+        margin-top: 75px;
+        margin-bottom: 50px;
+
     }
 
     .article-title {

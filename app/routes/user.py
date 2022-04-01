@@ -14,6 +14,27 @@ def logout():
     logout_user()
     return redirect(url_for("users"))
 
+@app.route("/account", methods=["GET","POST"])
+@login_required
+def account():
+    form = UpdateUserForm()
+    if request.method == "POST" and form.validate():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your account info updated!", "success")
+        return redirect(url_for("account"))
+    else:
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename="images/profiles/" + current_user.image_file)
+    print(image_file)
+    return render_template("account.html", title="My Account", image_file=image_file, form=form)
+
 @app.route("/login", methods=["GET","POST"])
 def login():
     """
@@ -21,7 +42,7 @@ def login():
     """
     if current_user.is_authenticated:
         flash("You already logged in", "info")
-        return redirect(url_for("home"))
+        return redirect(url_for("home_page"))
     form = LoginForm()
     if request.method == "POST" and form.validate():
         user = User.query.filter_by(email=form.email.data).first()
@@ -39,7 +60,7 @@ def login():
 def register():
     if current_user.is_authenticated:
         flash("You already logged in", 'info')
-        return redirect(url_for("home"))
+        return redirect(url_for("home_page"))
     form = RegisterForm()
     if request.method == 'POST' and form.validate():
         user = User(username=form.username.data, email=form.email.data)
@@ -50,22 +71,4 @@ def register():
         return redirect(url_for('login'))
     return render_template("register.html", title="Register", form=form)
 
-@app.route("/account", methods=["GET","POST"])
-@login_required
-def account():
-    form = UpdateUserForm()
-    if request.method == "POST" and form.validate():
-        if form.picture.data:
-            picture_file= save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash("Your account info updated!", "success")
-        return redirect(url_for("account"))
-    else:
-        form.username.data = current_user.username
-        form.email.data = current_user.email
 
-    image_file = url_for('static', filename="images/profiles/" + current_user.image_file)
-    return render_template("account.html", title="My Account", image_file=image_file, form=form)
