@@ -26,10 +26,10 @@ def login():
     if request.method == "POST" and form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember_me=form.remember_me.data)
+            login_user(user, remember=form.remember_me.data)
             flash('You have been logged in!','success')
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('home_page'))
         else:
             flash('Login Unsuccsesfull. Please check your email and password!','danger')
     return render_template("login.html", title="Login", form=form)
@@ -40,9 +40,9 @@ def register():
     if current_user.is_authenticated:
         flash("You already logged in", 'info')
         return redirect(url_for("home"))
-    form = RegisterForm
+    form = RegisterForm()
     if request.method == 'POST' and form.validate():
-        user = User(username=form.usermname.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

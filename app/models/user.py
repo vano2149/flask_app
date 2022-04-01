@@ -9,7 +9,7 @@ from flask_login import UserMixin
 from app import login
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """
     Модель пользователя
     согласно схеме содержать 4 атрибуда:
