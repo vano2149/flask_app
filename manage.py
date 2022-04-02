@@ -5,7 +5,7 @@
 
 from app import app, db
 from app.models.user import User
-
+from app.models.post import Post
 
 
 
@@ -21,6 +21,7 @@ def make_shell_context():
         "app" : app,
         "db" : db,
         "User": User,
+        "Post": Post,
     }
 if __name__ == "__main__":
     app.run()

@@ -13,10 +13,14 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
+login.login_view = "login"
+login.login_message_category = 'info'
 
+
+from app.models.user import User
+from app.models.post import Post
 
 from app.routes import base
 from app.routes import general
 from app.routes.user import *
-from app.models.user import User
-from app.models.post import Post
+
