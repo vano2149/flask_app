@@ -17,7 +17,6 @@ def home_page():
     return render_template("homepage.html", title="Home Page", posts=posts)
 
 @app.route("/about", methods=["GET"])
-#@login_required
 def about():
     return render_template("about.html", title="About Page")
 

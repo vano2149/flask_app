@@ -32,7 +32,6 @@ def account():
         form.email.data = current_user.email
 
     image_file = url_for('static', filename="images/profiles/" + current_user.image_file)
-    print(image_file)
     return render_template("account.html", title="My Account", image_file=image_file, form=form)
 
 @app.route("/login", methods=["GET","POST"])
