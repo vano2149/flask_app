@@ -5,6 +5,7 @@ from app import app, db
 from flask import render_template, request, redirect, flash, url_for
 from app.forms.user import LoginForm, RegisterForm, UpdateUserForm
 from app.models.user import User
+from app.models.post import Post
 from flask_login import current_user, login_user, logout_user, login_required
 from app.utils.compressor import save_picture
 
@@ -70,4 +71,13 @@ def register():
         return redirect(url_for('login'))
     return render_template("register.html", title="Register", form=form)
 
-
+@app.route("/user/<string:username>")
+@login_required
+def user_public(username:str):
+    """
+    Публичный просмотр постов.
+    """
+    page = request.args.get("page", 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts= Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)
+    return render_template("user_public.html", posts=posts, user=user, title=f"{user.username}'s profile")

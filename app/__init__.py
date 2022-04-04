@@ -21,7 +21,6 @@ login.login_message_category = 'info'
 from app.models.user import User
 from app.models.post import Post
 
-from app.routes.base import *
 from app.routes.general import *
 from app.routes.user import *
 
