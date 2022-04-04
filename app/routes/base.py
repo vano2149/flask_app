@@ -41,30 +41,3 @@ def register():
     return render_template("register.html", form=form, title="Register")
 
 """
-@app.route("/users", methods=["GET"])
-def users():
-    users = [
-        {
-            "username": "Alex",
-            "description" : "Alex's description",
-            "posts" : {
-                "first" : "First super Alex's post"
-            }
-        },
-        {
-            "username" : "Bob",
-            "description" : "Bob's description",
-            "posts" : {
-                "first" : "First super Bob's post"
-            }
-        },
-        {
-            "username" : "Alice",
-            "description" : "Alice's description",
-            "posts" : {
-                "first" : "First super Alice's post"
-            },
-        }
-    ]
-
-    return render_template("users.html", users=users, username="Fedya", title="User Page")

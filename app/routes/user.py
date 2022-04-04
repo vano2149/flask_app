@@ -12,7 +12,7 @@ from app.utils.compressor import save_picture
 def logout():
     flash("User successfuly logged out!")
     logout_user()
-    return redirect(url_for("users"))
+    return redirect(url_for("home_page"))
 
 @app.route("/account", methods=["GET","POST"])
 @login_required

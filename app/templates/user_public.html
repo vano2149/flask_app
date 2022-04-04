@@ -1,0 +1,41 @@
+<!--Публичная страница постов пользователей!!!-->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="round-circle account-img" src="{{ url_for('static', filename='images/profiles/ + user.images_file') }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+                <p class="text-secondary"><b>Sience:</b>{{ user.join_date.strftime('%Y-%m-%d')}}</p>
+            </div>
+        </div>
+    </div>
+    {% for post in posts.items %}
+    <article class="media content-section">
+        <img class="rouded-circle article-img" src="{{ url_for('static', filename='images/profiles/ + post.author.image_file') }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_public', username=post.author.username )}}">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', id=post.id )}}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+    {% endfor %}
+    {% for page_num in posts.iter_pages() %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('user_public', username=uaer.username, page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('user_public', username=user.username, page=page_num)}}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
