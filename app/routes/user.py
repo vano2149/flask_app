@@ -3,7 +3,7 @@
 """
 from app import app, db
 from flask import render_template, request, redirect, flash, url_for
-from app.forms.user import LoginForm, RegisterForm, UpdateUserForm
+from app.forms.user import LoginForm, RegisterForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
 from app.models.user import User
 from app.models.post import Post
 from flask_login import current_user, login_user, logout_user, login_required
@@ -81,3 +81,24 @@ def user_public(username:str):
     user = User.query.filter_by(username=username).first_or_404()
     posts= Post.query.filter_by(author=user).order_by(Post.timestamp.desc()).paginate(page=page, per_page=2)
     return render_template("user_public.html", posts=posts, user=user, title=f"{user.username}'s profile")
+
+@app.route("/reset_password", methods=['GET', 'POST'])
+def reset_password_token():
+    if current_user.is_authenticated:
+        flash("You already logged in", "info")
+        return redirect(url_for('home_page'))
+    form = RequestResetForm()
+    return render_template("reset_password_token.html", title="Reset Password Request", form=form)
+
+@app.route("/reset_password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    if current_user.is_authenticated:
+        flash("You already logged in", "info")
+        return redirect(url_for("home_page"))
+    
+    user = User.verify_reset_token(token)
+    if user in None:
+        flash("This in an invalod or exired token", "warning")
+        return redirect(url_for('reset_password_token'))
+    form = ResetPasswordForm()
+    return render_template('reset_password.html', title="Reset Password", form=form)
