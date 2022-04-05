@@ -66,3 +66,11 @@ class RequestResetForm(FlaskForm):
             raise ValidationError("There are no account with that email. Try regiser first")
 
 
+class ResetPasswordForm(FlaskForm):
+    """
+    Данная Форма используется для установки новаго пароля.
+    """
+    password = PasswordField(label="Password", validators=[DataRequired()])
+    confirm_password = PasswordField(label="Confirm Password", validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField(label='Set New Password')
+
