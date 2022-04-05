@@ -53,3 +53,16 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label="Sing Up")
 
 
+class RequestResetForm(FlaskForm):
+    """
+    Данная форма принемает email, проверяет, что такой email существует.
+    """
+    email = StringField(label="Email", validators=[DataRequired(), Email()])
+    submit = SubmitField(label="Send Me Instructions")
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user in None:
+            raise ValidationError("There are no account with that email. Try regiser first")
+
+
