@@ -3,11 +3,13 @@
 описание модели User
 """
 
-from app import db
+from app import app, db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
 from datetime import datetime
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 class User(UserMixin, db.Model):
     """
@@ -36,10 +38,25 @@ class User(UserMixin, db.Model):
 
     posts = db.relationship('Post', backref='author', lazy=True)
 
-    def get_reset_token():
+    def get_reset_token(self, expires_sec=1800):
         """
-        
+        Данный метод возвращает токен для пользователя 
+        с временем протухания равным expres_sec
         """
+        ser = Serializer(app.config["SECRET_KEY"], expires_in=expires_sec)
+        return ser.dump({'user.id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        """
+        Метод проверки токена.
+        """
+        ser = Serializer(app.config["SECRET_KEY"])
+        try:
+            user_id = ser.load(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
 
     def set_password(self, pure_pass:str):
         """
