@@ -34,6 +34,13 @@ class User(UserMixin, db.Model):
     image_file = db.Column(db.String(20), nullable=False, default="default.png")
     join_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
+    posts = db.relationship('Post', backref='author', lazy=True)
+
+    def get_reset_token():
+        """
+        
+        """
+
     def set_password(self, pure_pass:str):
         """
         Устанавливает значение фтрибута password_hash
