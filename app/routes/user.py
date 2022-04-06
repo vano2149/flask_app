@@ -8,6 +8,7 @@ from app.models.user import User
 from app.models.post import Post
 from flask_login import current_user, login_user, logout_user, login_required
 from app.utils.compressor import save_picture
+from app.utils.email import send_reset_email
 
 @app.route("/logout", methods=["GET"])
 def logout():
@@ -106,4 +107,9 @@ def reset_password(token):
         flash("This in an invalod or exired token", "warning")
         return redirect(url_for('reset_password_token'))
     form = ResetPasswordForm()
+    if request.method == "POST" and form.valodate():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash("New password was set. Try to log In!", "success")
+        return redirect(url_for("login"))
     return render_template('reset_password.html', title="Reset Password", form=form)
