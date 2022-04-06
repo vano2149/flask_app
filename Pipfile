@@ -13,6 +13,7 @@ flask-migrate = "*"
 flask-login = "*"
 wtforms = {extras = ["email"], version = "*"}
 pillow = "*"
+flask-mail = "*"
 
 [dev-packages]
 
