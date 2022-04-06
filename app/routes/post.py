@@ -24,3 +24,20 @@ def post(id:int):
     """
     post = Post.query.get_or_404(id)
     return render_template('post.html', title=post.title, post=post)
+
+@app.route("/post/new", methods=["GET", "POST"])
+@login_required
+def post_new():
+    """
+    Обрабработчик создания нового поста.
+    """
+    form = PostForm()
+    if request.method == "POST" and form.validate():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.seccion.commit()
+        flash("Your post has been created!","success")
+        return redirect(url_for('post', id=post.id))
+    return render_template("post_new.html", title="Create New Post", form=form)
+
+
