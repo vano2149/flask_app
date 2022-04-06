@@ -88,6 +88,11 @@ def reset_password_token():
         flash("You already logged in", "info")
         return redirect(url_for('home_page'))
     form = RequestResetForm()
+    if request.method == "POST" and form.validate():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash("An email has been sent with instruction to reset your password. Check Inbox", "info")
+        return redirect(url_for('login'))
     return render_template("reset_password_token.html", title="Reset Password Request", form=form)
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
