@@ -9,12 +9,6 @@ from flask_login import login_required
 from app.models.post import Post # это не этот posts определяется в home_page function.
 from app.models.user import User
 
-@app.route("/")
-@app.route("/home")
-def home_page():
-    page = request.args.get("page", 1, type = int)
-    posts = Post.query.order_by(Post.timestamp.desc()).paginate(page=page, per_page=2)
-    return render_template("homepage.html", title="Home Page", posts=posts)
 
 @app.route("/about", methods=["GET"])
 def about():
