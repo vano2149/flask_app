@@ -14,6 +14,7 @@ flask-login = "*"
 wtforms = {extras = ["email"], version = "*"}
 pillow = "*"
 flask-mail = "*"
+flask-babel = "*"
 
 [dev-packages]
 
