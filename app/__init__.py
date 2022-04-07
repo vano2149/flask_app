@@ -26,3 +26,4 @@ from app.models.post import Post
 from app.routes.general import *
 from app.routes.user import *
 from app.routes.post import *
+from app.errors.handlers import *
