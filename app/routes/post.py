@@ -39,3 +39,41 @@ def post_new():
         flash("Your post has been created!","success")
         return redirect(url_for('post', id=post.id))
     return render_template("post_new.html", title="Create New Post", form=form)
+
+@app.poute("/post/<int:id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_post(id:int):
+    """
+    Функция создания поста.
+    """
+    post = Post.query.get_or_404(id)
+    if post.author != current_user:
+        abort(403)
+    
+    form = PostForm()
+    if request.method == "POST" and form.validate():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash("Your post has been created!", "success")
+        return redirect(url_for('post', id=post.id))
+    else:
+        form.title.data = post.title
+        form.content.data = post.content
+    
+    return render_template("edit_post.html", title="Update Post", form=form)
+
+
+@app.route('/post<int:id>/delete', methods=["POST"])
+@login_required
+def delete_post(id:int):
+    """
+    Функция Удаления поста.
+    """
+    post = Post.query.get_or_404(id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash("Your Post has been deleted", "info")
+    return redirect(url_for("home_page"))
