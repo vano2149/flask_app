@@ -1,0 +1,48 @@
+<!--Фомна нового поста-->
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fildset class="form-group">
+                <legend class="border-bottom mb-4">Write Somthing New!</legend>
+                <!--Start Title Form-->
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label") }}
+
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title.label(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!--Ended Title Form-->
+                <!--Start Content Form-->
+                <div class="from-group">
+                    {{ form.content.label(class="form-control-label") }}
+
+                    {% form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!--Ended Content Form-->
+            </fildset>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info">Create New Post</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
