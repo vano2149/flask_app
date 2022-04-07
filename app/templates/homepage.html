@@ -12,7 +12,7 @@
           <small class="text-muted">{{ post.timestamp.strftime('%Y-%m-%d') }}</small>
         </div>
         <h2>
-          <a class="crticle-title" href="{{url_for('post, id=post.id' )}}">{{ post.title }}</a> 
+          <a class="crticle-title" href="{{url_for('post', id=post.id )}}">{{ post.title }}</a> 
         </h2>
         <p class="article-content">{{ post.content }}</p>
       </div>
@@ -22,9 +22,9 @@
   {% for page_num in posts.iter_pages() %}
     {% if page_num %}
         {% if posts.page == page_num %}
-            <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num )}}">{{ page_num }}</a>
+            <a class="btn btn-info mb-4" href="{{ url_for('home_page', page=page_num )}}">{{ page_num }}</a>
         {% else %}
-          <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num )}}">{{ page_num }}</a>
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('home_page', page=page_num )}}">{{ page_num }}</a>
         {% endif %}
     {% else %}
         ...

@@ -16,7 +16,7 @@ def home_page():
     return render_template("homepage.html", title="Home Page", posts=posts)
 
 
-@app.route('post/<int:id>')
+@app.route('/post/<int:id>')
 @login_required
 def post(id:int):
     """
@@ -35,12 +35,12 @@ def post_new():
     if request.method == "POST" and form.validate():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
-        db.seccion.commit()
+        db.session.commit()
         flash("Your post has been created!","success")
         return redirect(url_for('post', id=post.id))
     return render_template("post_new.html", title="Create New Post", form=form)
 
-@app.poute("/post/<int:id>/edit", methods=["GET", "POST"])
+@app.route("/post/<int:id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_post(id:int):
     """

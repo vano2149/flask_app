@@ -1,13 +1,13 @@
-<!--Фомна нового поста-->
+<!--Шаблон Изменения поста!-->
 {% extends "base.html" %}
 
 {% block content %}
     <div class="content-section">
-        <form method="POST" action="">
+        <form method="POST" acrion="">
             {{ form.hidden_tag() }}
-            <fildset class="form-group">
-                <legend class="border-bottom mb-4">Write Somthing New!</legend>
-                <!--Start Title Form-->
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Post</legend>
+                <!--Start Title form-->
                 <div class="form-group">
                     {{ form.title.label(class="form-control-label") }}
 
@@ -19,12 +19,12 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.title.label(class="form-control form-control-lg") }}
+                        {{ form.title(class="form.control form-control-lg") }}
                     {% endif %}
                 </div>
-                <!--Ended Title Form-->
-                <!--Start Content Form-->
-                <div class="from-group">
+                <!--Ended Form Title-->
+                <!--Start Form Content-->
+                <div class="form-group">
                     {{ form.content.label(class="form-control-label") }}
 
                     {% if form.content.errors %}
@@ -38,11 +38,13 @@
                         {{ form.content(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <!--Ended Content Form-->
-            </fildset>
+                <!--Ended Form Content-->
+            </fieldset>
+            <!--Start Submit Button form-->
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-info">Create New Post</button>
+                <button type="submit" class="btn btn-outline-info">Edit</button>
             </div>
+            <!--Ended Submit Button Form-->
         </form>
     </div>
 {% endblock %}
