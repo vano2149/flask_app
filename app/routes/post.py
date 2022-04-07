@@ -39,5 +39,3 @@ def post_new():
         flash("Your post has been created!","success")
         return redirect(url_for('post', id=post.id))
     return render_template("post_new.html", title="Create New Post", form=form)
-
-
