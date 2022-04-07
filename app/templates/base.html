@@ -34,6 +34,7 @@
                         <div class="navbar-nav">
                             <div class="navbar-nav">
                                 {% if current_user.is_authenticated %}
+                                    
                                     <a class="nav-item nav-link" href="{{ url_for('account') }}">{{ current_user.username }}</a>
                                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">LogOut</a>
                                 {% else %}
@@ -67,13 +68,17 @@
                     <div class="content-section">
                         <h3>Our Sidebar</h3>
                         <p class="text-muted">Put here anything!</p>
-                        <ul class="list-group">
-                            <button class="btn btn-outline-secondary"><p class="text-muted"> Первый </p></button>
-                            <button class="btn btn-outline-secondary"><p class="text-muted"> Второй </p></button>
-                            <button class="btn btn-outline-secondary"><p class="text-muted"> Третий </p></button>
-                            <button class="btn btn-outline-secondary"><p class="text-muted"> Четвертый </p></button>
-                            <button class="btn btn-outline-secondary"><p class="text-muted"> Пятый </p></button>
-                        </ul>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button class="btn btn-primary" type="button">Button</button>
+                            <button class="btn btn-primary" type="button">Button</button>
+                            <button class="btn btn-primary" type="button">Button</button>
+                            <button class="btn btn-primary" type="button">Button</button>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('post_new') }}"><button class="btn btn-primary" type="button">New Post</button><br></a>
+                            {% else %}
+                            <a href="{{ url_for('login') }}"><button class="btn btn-primary" type="button">Log In</button></a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
