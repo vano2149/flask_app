@@ -15,7 +15,7 @@ def save_picture(form_picture):
     f_ext = form_picture.filename.split('.')[-1] # Прилетает Имя нашей картинки. 
     picture_fn = random_hex + "." + f_ext # генерация нового имени файла картинки.
     picture_path = os.path.join(app.root_path, 'static/images/profiles/' + picture_fn)
-    
+
     output_size = (150, 150)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
