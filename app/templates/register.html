@@ -71,7 +71,7 @@
                         {{form.confirm_password(class="form-control form-control-lg")}}
                     {% endif %}
                 </div>
-            </fildset>
+            </fildset><br>
             <div class="form-group">
                 <button type="submit" class="btn btn-outline-info btn-lg">Sing In</button>
             </div>
@@ -79,12 +79,12 @@
     </div>
     <!--Register Form Ended-->
     <!--Account form started-->
-    <dev class="border-top pt-3">
+    <div class="border-top pt-3">
         <small class="text-muted">
             Already Have An Account? <a class="ml-2" href="{{ url_for('login')}}">
                 Sing In
             </a>
         </small>
-    </dev>
+    </div>
     <!--Account Form Ended-->
 {% endblock %}

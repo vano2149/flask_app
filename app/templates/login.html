@@ -59,18 +59,19 @@
                 <button type="submit" class="btn btn-outline-info btn-lg">Sing Up</button>
             </div>
         </form>
-        <small class="text-muted ml-2">
-            <a href="{{ url_for('reset_password_token')}}">Forgot Password?</a>
-        </small>
+        <div class="border-top pt-3">
+            <small class="text-muted ml-2">
+                <a href="{{ url_for('reset_password_token')}}">Forgot Password?</a>
+            </small>
+        </div>
     </div>
     <!--Account Form Started-->
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need An Account ? <a class="ml-2" href="{{ url_for('register') }}">
-                Register!
-            </a>
-        </small>
-    </div>
+    <small class="text-muted">
+        Need An Account ? <a class="ml-2" href="{{ url_for('register') }}">
+            Register!
+        </a>
+    </small>
+    <div class="border-top pt-3"></div>
     <!--Ended Account Form-->
 {% endblock %}
 
