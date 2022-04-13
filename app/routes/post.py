@@ -2,10 +2,10 @@
 Модуль с обработчиками Post-a
 """
 from app import app, db
-from app.models.post import Post
+from app.models.post import Post, Comment
 from flask import render_template
 from flask_login import login_required, current_user
-from app.forms.post import PostForm
+from app.forms.post import PostForm, AddCommetnForm
 from flask import request, flash, redirect, url_for, abort
 
 @app.route("/")
@@ -81,7 +81,15 @@ def delete_post(id:int):
 
 @app.route('/post/<int:post_id>/comment', methods=["GET","POST"])
 @login_required
-def comment_post():
+def comment_post(post_id):
     """
     """
-    pass
+    post = Post.query.get_or_404(post_id)
+    form = AddCommetnForm()
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data, post_id=post_id)
+        db.session.add(comment)
+        db.session.commit()
+        flash("Your comment has added to the post!", "success")
+        return redirect(url_for("post", post_id=post.id))
+    return render_template("comment_post.html", title="Comment Post", form=form)

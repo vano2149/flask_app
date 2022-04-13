@@ -34,18 +34,19 @@ class Post(db.Model):
         return f"<Post [timestamp:{self.timestamp}, body:{self.body}]>"
 
 
-    class Comment(db.Model):
-        """
-        Модель комментария под постов.
-        """
+class Comment(db.Model):
+    """
+    Модель комментария под постов.
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(100), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
 
-        id = db.Column(db.Integer, primary_key=True)
-        body = db.Column(db.String(100), nullable=False)
-        timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-        post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    def __repr__(self):
+        return f"<Comment : '{self.body}', '{self.timestamp}'>"
 
-        def __repr__(self):
-            return f"<Comment : '{self.body}', '{self.timestamp}'>"
+
 posts = [
     {
         "author" : "Ivan Kal'ko",
