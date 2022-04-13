@@ -17,6 +17,7 @@
             <h2 class="article-title">{{ post.title }}</h2>
             <p class="article-content">{{ post.content }}</p>
         </div>
+        <a class="btn btn-dark btn-sm mt-1" href="{{ url_for('comment_post', post_id=post.id)}}">Comment Post</a>
     </article>
 
     <!-- Modal -->
