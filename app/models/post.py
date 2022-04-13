@@ -26,7 +26,7 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-
+    comment = db.relationship('Comment', backref='article', lazy=True)
     def __str__(self):
         return f"Post object (timrstamp:{self.timestamp}, body:{self.body})"
     
