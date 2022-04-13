@@ -4,7 +4,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 
 class PostForm(FlaskForm):
     """
@@ -18,5 +18,5 @@ class AddCommetnForm(FlaskForm):
     """
     Класс описывающий форму коментария к посту.
     """
-    body = StringField(label="Body", validators=[DataRequired()])
+    body = StringField(label="Body", validators=[InputRequired()])
     submit = SubmitField(label="Create Comment")
