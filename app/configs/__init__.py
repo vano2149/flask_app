@@ -18,3 +18,5 @@ class Config(object):
     # MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("EMAIL_ADMIN")
     MAIL_PASSWORD = os.environ.get("EMAIL_ADMIN_PASSWIRD")
+
+    # 5.8 
