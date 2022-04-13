@@ -14,5 +14,9 @@ class PostForm(FlaskForm):
     content = TextAreaField(label="Content", validators=[DataRequired()])
     submit = SubmitField(label="Create Post")
 
-class Comment():
-    pass
+class AddCommetnForm(FlaskForm):
+    """
+    Класс описывающий форму коментария к посту.
+    """
+    body = StringField(label="Body", validators=[DataRequired()])
+    submit = SubmitField(label="Create Comment")
