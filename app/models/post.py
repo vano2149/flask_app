@@ -43,6 +43,9 @@ class Post(db.Model):
         body = db.Column(db.String(100), nullable=False)
         timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
         post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+
+        def __repr__(self):
+            return f"<Comment : '{self.body}', '{self.timestamp}'>"
 posts = [
     {
         "author" : "Ivan Kal'ko",
