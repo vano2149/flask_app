@@ -77,3 +77,11 @@ def delete_post(id:int):
     db.session.commit()
     flash("Your Post has been deleted", "info")
     return redirect(url_for("home_page"))
+
+
+@app.route('/post/<int:post_id>/comment', methods=["GET","POST"])
+@login_required
+def comment_post():
+    """
+    """
+    pass

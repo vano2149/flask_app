@@ -20,8 +20,8 @@ login.login_message_category = 'info'
 mail = Mail(app)
 
 
-from app.models.user import User
-from app.models.post import Post
+from app.models.user import *
+from app.models.post import *
 
 from app.routes.general import *
 from app.routes.user import *
