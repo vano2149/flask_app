@@ -19,4 +19,4 @@ class Config(object):
     MAIL_USERNAME = os.environ.get("EMAIL_ADMIN")
     MAIL_PASSWORD = os.environ.get("EMAIL_ADMIN_PASSWIRD")
 
-    # 5.8 
+    # Postgres Глава 5.9.3 -> Путь поиска схемы.
