@@ -74,6 +74,7 @@ def account():
     image_file = url_for('static', filename="images/profiles/" + current_user.image_file)
     return render_template("account.html", title="My Account", image_file=image_file, form=form)
 
+
 @app.route("/logout", methods=["GET"])
 def logout():
     flash("User successfuly logged out!")
