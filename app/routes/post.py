@@ -83,6 +83,7 @@ def delete_post(id:int):
 @login_required
 def comment_post(post_id):
     """
+    Обработчик создания комментария.
     """
     post = Post.query.get_or_404(post_id)
     form = AddCommetnForm()
